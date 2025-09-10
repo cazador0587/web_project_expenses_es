@@ -17,8 +17,8 @@ function calculateAverageExpense() {
   }
 
   let total = 0;
-  for (let i = 0; i < expenseEntries.length; i++) {
-    total += expenseEntries[i][1];
+  for (const entry of expenseEntries) {
+    total += entry[1];
   }
 
   let average = total / expenseEntries.length;
@@ -29,8 +29,8 @@ console.log("Gasto promedio:", calculateAverageExpense());
 
 function calculateTotalExpenses() {
   let total = 0;
-  for (let i = 0; i < expenseEntries.length; i++) {
-    total += expenseEntries[i][1];
+  for (const entry of expenseEntries) {
+    total += entry[1];
   }
   return total;
 }
@@ -78,17 +78,9 @@ function updateBalanceColor() {
   }
 }
 
-function calculateCategoryExpenses(category) {
-  let total = 0;
-
-  for (let i = 0; i < expenseEntries.length; i++) {
-    if (expenseEntries[i][0] === category) {
-      total += expenseEntries[i][1];
-    }
-  }
-
-  return total;
-}
+/* function calculateCategoryExpenses(category) {
+  // Duplicate function removed. See definition above.
+} */
 
 let categories = [
   "groceries",
@@ -100,18 +92,16 @@ let categories = [
 
 function calculateCategoryExpenses(category) {
   let total = 0;
-  for (let i = 0; i < expenseEntries.length; i++) {
-    if (expenseEntries[i][0] === category) {
-      total += expenseEntries[i][1];
+  for (const entry of expenseEntries) {
+    if (entry[0] === category) {
+      total += entry[1];
     }
   }
   return total;
 }
 
-let categoriesData = [];
 
-for (let i = 0; i < categories.length; i++) {
-  let categoryName = categories[i];
+for (const categoryName of categories) {
   let categoryTotal = calculateCategoryExpenses(categoryName);
   categoriesData.push([categoryName, categoryTotal]);
 }
@@ -124,11 +114,10 @@ function calculateLargestCategory() {
     "home",
     "subscriptions",
   ];
-  let categoriesData = [];
 
   // Construir array de categorías con totales
-  for (let i = 0; i < categories.length; i++) {
-    let categoryName = categories[i];
+  let categoriesData = [];
+  for (const categoryName of categories) {
     let categoryTotal = calculateCategoryExpenses(categoryName);
     categoriesData.push([categoryName, categoryTotal]);
   }
@@ -144,9 +133,16 @@ function calculateLargestCategory() {
     }
   }
 
-  return largestCategory;
+  // Siempre retorna un objeto con la categoría y el valor
+  return { category: largestCategory, value: largestValue };
 }
-
+const largestCategoryResult = calculateLargestCategory();
+console.log(
+  "La categoría con más gastos es:",
+  largestCategoryResult.category,
+  "con un total de $",
+  largestCategoryResult.value
+);
 console.log("La categoría con más gastos es:", calculateLargestCategory());
 
 function addExpenseEntry(entry) {
