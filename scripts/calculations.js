@@ -1,5 +1,33 @@
+/**
+ * Paso 2.- definir dos variables iniciales: 
+ *            budgetValue para almacenar el importe total del presupuesto que establecemos en Presupuesto y
+ *            totalExpensesValue para realizar un seguimiento de la suma de todos los gastos,
+ *          que se muestra como Gastos totales.
+ */
 let budgetValue = 0;
 let totalExpensesValue = 0;
+
+/**
+ * Paso 3.- Definir un array llamado expenseEntries para almacenar los gastos.
+ *          Cada gasto es un array con dos elementos: la categoría y el importe.
+ *          Inicialmente, este array contiene algunos gastos de ejemplo.
+ * 
+ *          se utilizara una estructura de array anidada.
+ *          como una tabla: cada "fila" representa un gasto individual;
+ *          y cada gasto tiene dos "columnas", 
+ *          la primera para la categoría y la segunda para el importe.
+ * 
+ *          Nuestro Gestor de gastos utiliza cinco categorías de gastos:
+ *          groceries ("Comida"),
+ *          restaurants ("Comer fuera"),
+ *          transport ("Transporte"),
+ *          home ("Hogar") 
+ *          y subscriptions ("Suscripciones").
+ *      
+ *          Ten en cuenta que estos son valores de string.
+ *          Una vez que hayas creado con éxito este array, 
+ *          se mostrará una lista inicial de gastos en la página después de actualizarla.
+ */
 
 let expenseEntries = [
   ["groceries", 33],
@@ -11,6 +39,22 @@ let expenseEntries = [
   ["subscriptions", 12],
 ];
 
+/**
+ * Paso 5.- calcular algunas otras estadísticas, como el Gasto promedio.
+ *          Para ello tendrás que crear una nueva función calculateAverageExpense()
+ *          que calculará el valor promedio de un gasto en función del importe total de los gastos
+ *          y el número de gastos. Esta función debe devolver el promedio calculado.
+ * 
+ *         Tal vez lo recuerdes de la clase de matemáticas:
+ *         para encontrar un promedio, debes dividir el importe total entre el número de elementos.
+ *         Pero si no hay gastos, estarías dividiendo cero entre cero, lo cual no está permitido.
+ *         En JavaScript, esto te da NaN y no queremos eso en la página. Para solucionarlo,
+ *         primero agrega una condición que devuelva 0 si el array expenseEntries está vacío.
+ * 
+ *         Una vez que hayas logrado hacer esto, vuelve a actualizar la página:
+ *         verás que se muestra el valor Gasto promedio en la sección Estadísticas generales.
+ * 
+ */
 function calculateAverageExpense() {
   if (expenseEntries.length === 0) {
     return 0; // Evita NaN si no hay gastos
@@ -35,6 +79,15 @@ function calculateTotalExpenses() {
   return total;
 }
 
+/**
+ * Paso 6.- El último elemento de la sección Estadísticas generales es el Saldo.
+ *          Esto se calcula como la diferencia entre el presupuesto establecido y los gastos totales.
+ *          Piensa en cómo calcularlo y crea una función calculateBalance() que devolverá este valor.
+ * 
+ *          Una vez hayas terminado, actualiza la página y verás el valor Saldo que se muestra en la sección Estadísticas generales.
+ *  
+ */
+
 function calculateBalance() {
   let totalExpenses = calculateTotalExpenses();
   return budgetValue - totalExpenses;
@@ -57,6 +110,8 @@ console.log(expenseEntries);
 for (const [categoria, importe] of expenseEntries) {
   console.log(`Categoría: ${categoria}, Importe: $${importe}`);
 }
+
+
 
 let balanceColor = "green";
 
