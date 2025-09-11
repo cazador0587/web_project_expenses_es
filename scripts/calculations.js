@@ -158,7 +158,7 @@ function calculateCategoryExpenses(category) {
 
 for (const categoryName of categories) {
   let categoryTotal = calculateCategoryExpenses(categoryName);
-  categoriesData.push([categoryName, categoryTotal]);
+  categories.push([categoryName, categoryTotal]);
 }
 
 function calculateLargestCategory() {
