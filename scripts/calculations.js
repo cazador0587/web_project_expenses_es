@@ -39,6 +39,13 @@ let expenseEntries = [
   ["subscriptions", 12],
 ];
 
+//4.- Calcular el total de gastos
+totalExpensesValue = 0;
+
+for (const entry of expenseEntries) {
+  totalExpensesValue += entry[1];
+}
+
 /**
  * Paso 5.- calcular algunas otras estadísticas, como el Gasto promedio.
  *          Para ello tendrás que crear una nueva función calculateAverageExpense()
@@ -55,29 +62,17 @@ let expenseEntries = [
  *         verás que se muestra el valor Gasto promedio en la sección Estadísticas generales.
  * 
  */
+
 function calculateAverageExpense() {
   if (expenseEntries.length === 0) {
     return 0; // Evita NaN si no hay gastos
   }
 
-  let total = 0;
-  for (const entry of expenseEntries) {
-    total += entry[1];
-  }
-
-  let average = total / expenseEntries.length;
+  let average = totalExpensesValue / expenseEntries.length;
   return average;
 }
 
 console.log("Gasto promedio:", calculateAverageExpense());
-
-function calculateTotalExpenses() {
-  let total = 0;
-  for (const entry of expenseEntries) {
-    total += entry[1];
-  }
-  return total;
-}
 
 /**
  * Paso 6.- El último elemento de la sección Estadísticas generales es el Saldo.
@@ -89,17 +84,16 @@ function calculateTotalExpenses() {
  */
 
 function calculateBalance() {
-  let totalExpenses = calculateTotalExpenses();
-  return budgetValue - totalExpenses;
+  return budgetValue - totalExpensesValue;
 }
 
-console.log("Total gastos:", calculateTotalExpenses());
-console.log("Saldo restante:", calculateBalance());
+//console.log("Total gastos:", calculateTotalExpenses());
+//console.log("Saldo restante:", calculateBalance());
 
-expenseEntries.push(["groceries", 450]);
+/*expenseEntries.push(["groceries", 450]);
 expenseEntries.push(["restaurants", 600]);
 
-console.log(expenseEntries);
+console.log(expenseEntries);*/
 
 /*for (let i = 0; i < expenseEntries.length; i++) {
   console.log(
@@ -107,35 +101,38 @@ console.log(expenseEntries);
   );
 }*/
 
-for (const [categoria, importe] of expenseEntries) {
+/*for (const [categoria, importe] of expenseEntries) {
   console.log(`Categoría: ${categoria}, Importe: $${importe}`);
-}
+}*/
 
-
+// 7.- cambiar color del saldo
 
 let balanceColor = "green";
 
 function updateBalanceColor() {
-  let balance = calculateBalance();
-
-  if (balance < 0) {
+  //let balance = calculateBalance();
+  if (budgetValue < totalExpensesValue) {
     balanceColor = "red";
-  } else if (balance < budgetValue * 0.25) {
+  } else if (calculateBalance() < budgetValue * 0.25) {
     balanceColor = "orange";
   } else {
     balanceColor = "green";
   }
+}
 
   // Aquí actualizamos el color en pantalla (ejemplo si el saldo está en un <span id="balanceValue">)
-  let balanceElement = document.getElementById("balanceValue");
+  /*let balanceElement = document.getElementById("balanceValue");
   if (balanceElement) {
     balanceElement.style.color = balanceColor;
   }
-}
+}*/
 
 /* function calculateCategoryExpenses(category) {
   // Duplicate function removed. See definition above.
 } */
+
+
+  // 8.- calcular el gasto total por categoría
 
 let categories = [
   "groceries",
@@ -156,10 +153,12 @@ function calculateCategoryExpenses(category) {
 }
 
 
-for (const categoryName of categories) {
+/*for (const categoryName of categories) {
   let categoryTotal = calculateCategoryExpenses(categoryName);
   categories.push([categoryName, categoryTotal]);
-}
+}*/
+
+//9.- calcular la categoría con mayor gasto
 
 function calculateLargestCategory() {
   let categories = [
@@ -189,7 +188,7 @@ function calculateLargestCategory() {
   }
 
   // Siempre retorna un objeto con la categoría y el valor
-  return { category: largestCategory, value: largestValue };
+  return largestCategory;
 }
 const largestCategoryResult = calculateLargestCategory();
 console.log(
@@ -200,19 +199,20 @@ console.log(
 );
 console.log("La categoría con más gastos es:", calculateLargestCategory());
 
+// 10.- función para agregar un nuevo gasto
+
 function addExpenseEntry(entry) {
   // 1. Agregar el gasto al array
   expenseEntries.push(entry);
 
   // 2. Actualizar el total de gastos
-  totalExpensesValue = calculateTotalExpenses();
+  totalExpensesValue += entry[1];
 
   // 3. Actualizar la página (ejemplo si tenemos los spans con IDs)
-  document.getElementById("expensesValue").textContent = totalExpensesValue;
-  document.getElementById("averageValue").textContent =
-    calculateAverageExpense().toFixed(2);
+  /*  document.getElementById("expensesValue").textContent = totalExpensesValue;
+  document.getElementById("averageValue").textContent = calculateAverageExpense().toFixed(2);
   document.getElementById("balanceValue").textContent = calculateBalance();
 
   // 4. Actualizar color del saldo
-  updateBalanceColor();
+  updateBalanceColor();*/
 }
